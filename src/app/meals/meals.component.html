@@ -1,0 +1,5 @@
+<div *ngIf="currentMeal" class="meal-card">
+  {{currentMeal.name}}
+  <button (click)="handleLike()">👍</button>
+  <button (click)="handleDislike()">👎</button>
+</div>

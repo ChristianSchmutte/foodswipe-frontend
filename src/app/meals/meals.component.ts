@@ -11,10 +11,14 @@ export class MealsComponent implements OnInit {
 
   meals: Meal[] = [];
   currentMeal?: Meal;
+  latitude?: number;
+  longitute?: number;
+  shouldShowWarning: boolean = false;
 
   constructor(private readonly mealsService: MealsService) { }
 
   ngOnInit(): void {
+    this.getLocation();
     this.getMeals();
   }
 
@@ -33,6 +37,20 @@ export class MealsComponent implements OnInit {
   handleDislike(): void {
     this.currentMeal = this.meals.shift();
     // TODO: once SQL pagination is a thing check size of meals and resize meals
+  }
+
+  private getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
+        if (position) {
+          this.latitude = position.coords.latitude;
+          this.longitute = position.coords.longitude;
+        }
+      },
+        (error: GeolocationPositionError) => this.shouldShowWarning = true);
+    } else {
+     
+    }
   }
 
 }

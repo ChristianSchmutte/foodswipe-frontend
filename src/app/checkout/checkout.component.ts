@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Meal } from '../meals/meal.interface';
+import { MealsService } from '../meals/meals.service';
+import { CheckoutService } from './checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor() { }
+  currentMeal?: Meal;
+
+  constructor(
+    private checkOutService: CheckoutService,
+    private mealService: MealsService
+  ) { }
 
   ngOnInit(): void {
+    this.currentMeal = this.mealService.meal$.getValue();
   }
-
+  
 }

@@ -28,7 +28,6 @@ export class MealsService {
       const nextMeal = this.mealList.shift();
       if (nextMeal) this.meal$.next(nextMeal);
     }
-    
   }
 
   private fetchNewMeals(): void {

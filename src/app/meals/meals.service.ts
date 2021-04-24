@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Meal } from './meal.interface';
 @Injectable({
@@ -8,6 +8,8 @@ import { Meal } from './meal.interface';
 })
 export class MealsService {
   private readonly baseUrl = 'http://localhost:8080/meals';
+  readonly meal$ = new BehaviorSubject<Meal>({} as Meal);
+  private mealList: Meal[] = [];
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -19,11 +21,25 @@ export class MealsService {
     private http: HttpClient,
   ) { }
 
-  getMeals(): Observable<Meal[]> {
-    return this.http.get<Meal[]>(this.baseUrl)
+  getNextMeal(): void {
+    if (this.mealList.length < 3) this.fetchNewMeals();
+    else {
+      console.log('Hello')
+      const nextMeal = this.mealList.shift();
+      if (nextMeal) this.meal$.next(nextMeal);
+    }
+    
+  }
+
+  private fetchNewMeals(): void {
+    this.http.get<Meal[]>(this.baseUrl)
       .pipe(
         catchError(this.handleError<Meal[]>('get meals', []))
-      );
+      )
+      .subscribe(newMeals => {
+        this.mealList = [...this.mealList, ...newMeals];
+        this.meal$.next(this.mealList.shift()!);
+      });
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

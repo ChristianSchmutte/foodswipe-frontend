@@ -5,5 +5,6 @@ export interface Meal {
   name: string;
   description: string;
   price: number;
+  //TODO: image url
   restaurant: Restaurant;
 }

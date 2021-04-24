@@ -20,14 +20,11 @@ export class MealsComponent implements OnInit {
   ngOnInit(): void {
     this.getLocation();
     this.getMeals();
+    this.mealsService.meal$.subscribe(meal => this.currentMeal = meal);
   }
 
   getMeals(): void {
-    this.mealsService.getMeals()
-      .subscribe((meals) => {
-        this.meals.push(...meals);
-        this.currentMeal = this.meals.shift();
-      });
+    this.mealsService.getNextMeal();
   }
 
   handleLike(): void {
@@ -35,7 +32,7 @@ export class MealsComponent implements OnInit {
   }
 
   handleDislike(): void {
-    this.currentMeal = this.meals.shift();
+    this.mealsService.getNextMeal();
     // TODO: once SQL pagination is a thing check size of meals and resize meals
   }
 

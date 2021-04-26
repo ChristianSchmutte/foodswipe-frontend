@@ -10,6 +10,7 @@ export class MealsService {
   private readonly baseUrl = 'http://localhost:8080/meals';
   readonly meal$ = new BehaviorSubject<Meal>({} as Meal);
   private mealList: Meal[] = [];
+  readonly mealList$ = new BehaviorSubject<Meal[]>([]);
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -28,6 +29,12 @@ export class MealsService {
       const nextMeal = this.mealList.shift();
       if (nextMeal) this.meal$.next(nextMeal);
     }
+  }
+
+  getRestaurantMeals(id: number):void {
+    const meals = this.http.get<Meal[]>(`${this.baseUrl}/restaurants/${id}`);
+
+    meals.subscribe(meals => this.mealList$.next(meals));
   }
 
   private fetchNewMeals(): void {

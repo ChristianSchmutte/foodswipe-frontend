@@ -1,4 +1,5 @@
 export interface Order {
+  id?: number;
   mealId: number;
   customer_first_name: string;
   customer_last_name: string;

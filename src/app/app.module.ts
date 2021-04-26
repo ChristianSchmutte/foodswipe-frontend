@@ -7,13 +7,17 @@ import { MealsComponent } from './meals/meals.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MealsComponent,
     CheckoutComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

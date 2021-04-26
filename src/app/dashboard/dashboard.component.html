@@ -1,0 +1,7 @@
+<a routerLink="orders">Start Service</a>
+
+<div *ngIf="meals">
+  <ul *ngFor="let meal of meals">
+    <li>{{ meal.name }}</li>
+  </ul>
+</div>

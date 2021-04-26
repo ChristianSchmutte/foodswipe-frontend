@@ -15,7 +15,7 @@ export class CheckoutService {
 
   private httpOptions = {
     headers: { 'Content-Type' : 'application/json '}
-  }
+  };
 
   constructor(
     private mealsService: MealsService,
@@ -23,7 +23,6 @@ export class CheckoutService {
   ) {}
 
   placeOrder(order: Order): void {
-    const { headers } = this.httpOptions;
     const postResult = this.http.post<OrderResult>(
       this.baseUrl,
       order,
@@ -33,7 +32,7 @@ export class CheckoutService {
         tap((result) => console.log(result)),
         catchError(() => this.handleError<any>('post order')),
       );
-    postResult.subscribe(r => console.log(r));
+    postResult.subscribe((r) => console.log(r));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

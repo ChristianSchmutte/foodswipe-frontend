@@ -51,9 +51,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
   postOrder(): void {
+    // TODO router to order confirmation page
     const mealId = this.mealService.meal$.getValue().id;
     this.order.mealId = mealId;
-    console.log('Hi',this.order);
     this.checkOutService.placeOrder(this.order);
   }
 }

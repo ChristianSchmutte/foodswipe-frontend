@@ -8,4 +8,5 @@ export interface Order {
   customer_zip: string;
   customer_city: string;
   comments?: string;
+  status?: string;
 }

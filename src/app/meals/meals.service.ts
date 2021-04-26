@@ -25,7 +25,6 @@ export class MealsService {
   getNextMeal(): void {
     if (this.mealList.length < 3) this.fetchNewMeals();
     else {
-      console.log('Hello')
       const nextMeal = this.mealList.shift();
       if (nextMeal) this.meal$.next(nextMeal);
     }
@@ -46,6 +45,11 @@ export class MealsService {
         this.mealList = [...this.mealList, ...newMeals];
         this.meal$.next(this.mealList.shift()!);
       });
+  }
+  
+  updateMeal(meal: Meal): void {
+    this.http.patch<Meal>(`${this.baseUrl}/${meal.id}`, meal, this.httpOptions)
+      .subscribe(meal => console.log(meal));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

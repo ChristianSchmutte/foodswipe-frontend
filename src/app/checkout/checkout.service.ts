@@ -23,6 +23,7 @@ export class CheckoutService {
   ) {}
 
   placeOrder(order: Order): void {
+    console.log(order);
     const postResult = this.http.post<OrderResult>(
       this.baseUrl,
       order,

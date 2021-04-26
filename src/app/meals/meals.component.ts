@@ -31,7 +31,6 @@ export class MealsComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    console.log('was nice meeting you!');
     this.subscription?.unsubscribe();
   }
 

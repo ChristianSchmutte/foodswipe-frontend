@@ -1,1 +1,14 @@
-<p>orders works!</p>
+<button (click)="handleStopService()">Stop Service</button>
+<ul *ngFor="let pendingOrder of pendingOrders">
+  <li>{{pendingOrder.status}}
+    <button (click)="handleAccept(pendingOrder.id)">
+      Accept
+    </button>
+  </li>
+</ul>
+
+<ul *ngFor="let openOrder of openOrders">
+  <li >{{openOrder.status}}
+    <button (click)="handleDelivered(openOrder.id)">Delivery</button>
+  </li>
+</ul>

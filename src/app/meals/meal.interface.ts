@@ -6,5 +6,6 @@ export interface Meal {
   description: string;
   price: number;
   //TODO: image url
+  image_url?: string;
   restaurant: Restaurant;
 }

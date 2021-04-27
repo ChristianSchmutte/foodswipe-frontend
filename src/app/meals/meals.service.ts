@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -13,9 +13,9 @@ export class MealsService {
   readonly mealList$ = new BehaviorSubject<Meal[]>([]);
 
   private httpOptions = {
-    headers: new HttpHeaders({
+    headers: {
       'Content-Type' : 'application/json'
-    }),
+    },
   }
 
   constructor(
@@ -28,6 +28,26 @@ export class MealsService {
       const nextMeal = this.mealList.shift();
       if (nextMeal) this.meal$.next(nextMeal);
     }
+  }
+
+  getMealById(id: number): void {
+    this.http.get<Meal>(`${this.baseUrl}/${id}`)
+      .subscribe(meal => {
+        this.meal$.next(meal)
+      });
+  }
+
+  createMeal(meal: Meal): void {
+    let body = {
+      name: meal.name,
+      price: meal.price,
+      image_url: meal.image_url!,
+      description: meal.description,
+      restaurantId: meal.restaurant.id,
+    }
+    console.log('REQ', body);
+    this.http.post<Meal>(`${this.baseUrl}`, JSON.stringify(body) , this.httpOptions )
+      .subscribe(meal => console.log(meal));
   }
 
   getRestaurantMeals(id: number):void {
@@ -48,8 +68,10 @@ export class MealsService {
   }
   
   updateMeal(meal: Meal): void {
-    this.http.patch<Meal>(`${this.baseUrl}/${meal.id}`, meal, this.httpOptions)
-      .subscribe(meal => console.log(meal));
+    
+    console.log(meal)
+    this.http.patch<Meal>(`${this.baseUrl}/${meal.id}`, meal , this.httpOptions)
+      .subscribe((remeal) => console.log(remeal));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

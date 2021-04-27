@@ -32,5 +32,4 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const { id } = this.authService.restaurant$.getValue();
     this.mealsService.getRestaurantMeals(id);
   }
-
 }

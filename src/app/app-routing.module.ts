@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditMealsComponent } from './editmeals/editmeals.component';
 import { LoginComponent } from './login/login.component';
 import { MealsComponent } from './meals/meals.component';
 import { MealsService } from './meals/meals.service';
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/swipe', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'dashboard/orders', component: OrdersComponent}
+  { path: 'dashboard/orders', component: OrdersComponent },
+  { path: 'dashboard/editmeal/:id', component: EditMealsComponent }
 ];
 
 @NgModule({

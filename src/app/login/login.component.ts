@@ -23,9 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loginForm.valueChanges.subscribe((form) => {
-      console.log(form);
-    });
+    
     this.subscription = this.authService.restaurant$.subscribe(restaurant => {
       if (restaurant.id) {
         this.router.navigate(['/dashboard']);

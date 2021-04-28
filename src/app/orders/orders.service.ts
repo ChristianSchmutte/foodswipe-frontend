@@ -37,17 +37,17 @@ export class OrdersService {
   }
   
   getOpenOrders(): void {
-    const newOrders = this.http.get<Order[]>(`${this.baseUrl}${this.restaurant.id}&status=ACCEPTED`);
+    const newOrders = this.http.get<Order[]>(`${this.baseUrl}${2}&status=ACCEPTED`);
     newOrders.subscribe(orders => this.openOrders$.next(orders));
     
   }
 
   private getPendingOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.baseUrl}${this.restaurant.id}&status=PENDING`);
+    return this.http.get<Order[]>(`${this.baseUrl}${2}&status=PENDING`);
   }
 
-  acceptOrder(id: number): void {
-    this.http.patch<Order>(`${this.baseUrl}${this.restaurant.id}&status=ACCEPTED&id=${id}`, null)
+  acceptOrder(id: number): void { // todo fix restaurant id
+    this.http.patch<Order>(`${this.baseUrl}${2}&status=ACCEPTED&id=${id}`, null)
       .subscribe((orders) => {
         console.log(orders);
         this.getOpenOrders();

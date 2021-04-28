@@ -12,7 +12,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { EditMealsComponent } from './editmeals/editmeals.component';
 import { environment } from '../environments/environment'
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireStorageModule } from '@angular/fire/storage'
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { ConfirmComponent } from './confirm/confirm.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage'
     DashboardComponent,
     OrdersComponent,
     EditMealsComponent,
+    ConfirmComponent,
   ],
   imports: [
     BrowserModule,

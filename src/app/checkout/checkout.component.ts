@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MealsService } from '../meals/meals.service';
 import { CheckoutService } from './checkout.service';
 import { Order } from './order.interface';
@@ -19,6 +20,7 @@ export class CheckoutComponent implements OnInit {
     private checkOutService: CheckoutService,
     private mealService: MealsService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.checkOutForm = this.constructForm();
   }
@@ -55,5 +57,6 @@ export class CheckoutComponent implements OnInit {
     const mealId = this.mealService.meal$.getValue().id;
     this.order.mealId = mealId;
     this.checkOutService.placeOrder(this.order);
+    this.router.navigate(['confirm']);
   }
 }
